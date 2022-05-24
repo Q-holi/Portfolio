@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Main.h"
 
 void Main::Init()
@@ -35,7 +35,7 @@ void Main::Update()
 
 	CAM->position = player->col->GetWorldPos(); 
 
-	monsterRespawnTime += DELTA;//¸ó½ºÅÍ ½ºÆù ½Ã°£
+	monsterRespawnTime += DELTA;//ëª¬ìŠ¤í„° ìŠ¤í° ì‹œê°„
 	for (int i = 0; i < MAXshieldEnemy; i++) {
 		if (shieldEnemy[i]->hp > 0.0f) {
 			if (monsterRespawnTime >= 2.0f) {
@@ -43,14 +43,14 @@ void Main::Update()
 				monsterRespawnTime = 0.0f;
 			}
 
-			//ÇÃ·¹ÀÌ¾îÀÇ ¹æÇâÀ¸·Î ¸ó½ºÅÍ ¿òÁ÷ÀÌ°Ô ÇÏ±â
+			//í”Œë ˆì´ì–´ì˜ ë°©í–¥ìœ¼ë¡œ ëª¬ìŠ¤í„° ì›€ì§ì´ê²Œ í•˜ê¸°
 			Vector2 velocity = player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos();
 			velocity.Normalize();
 			shieldEnemy[i]->MoveMonster(velocity);
 		}
 
 
-		//ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ °ø°İ ½Ã°£ °è»ê
+		//í”Œë ˆì´ì–´ ì•„ì´í…œ ê³µê²© ì‹œê°„ ê³„ì‚°
 
 	}
 	//player->weapon[0]->attackTimer -= DELTA;

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 ShieldEnemy::ShieldEnemy()
 {
@@ -38,9 +38,9 @@ void ShieldEnemy::Render()
 
 void ShieldEnemy::Respawn()
 {
-	//°¢ p
-	// osX posYÀÇ °íÁ¤ È¤Àº ·£´ı ¹üÀ§ ¸¦ ÁÖ±â À§ÇØ¼­ ÀÔ´Ï´Ù.
-	//boolº¯¼ö 3°³¸¦ ÀÌ¿ëÇØ¼­ °¢ Ä«¸Ş¶ó ¹üÀ§ ¹Û¿¡ À§Ä¡¿¡¼­ »ı¼º
+	//ê° p
+	// osX posYì˜ ê³ ì • í˜¹ì€ ëœë¤ ë²”ìœ„ ë¥¼ ì£¼ê¸° ìœ„í•´ì„œ ì…ë‹ˆë‹¤.
+	//boolë³€ìˆ˜ 3ê°œë¥¼ ì´ìš©í•´ì„œ ê° ì¹´ë©”ë¼ ë²”ìœ„ ë°–ì— ìœ„ì¹˜ì—ì„œ ìƒì„±
 	bool posRespawn = RANDOM->Int();
 	bool xposRespawn = RANDOM->Int();
 	bool yposRespawn = RANDOM->Int();
@@ -80,7 +80,7 @@ void ShieldEnemy::TakeDamage(float damage)
 
 void ShieldEnemy::MoveMonster(Vector2 velocity)
 {
-	//ÇÃ·¹ÀÌ¾î ÀÌµ¿¹æÇâ¿¡ µû¸¥ ¸ó½ºÅÍ¿¡ ¹Ù¶óº¸´Â ¹æÇâ 
+	//í”Œë ˆì´ì–´ ì´ë™ë°©í–¥ì— ë”°ë¥¸ ëª¬ìŠ¤í„°ì— ë°”ë¼ë³´ëŠ” ë°©í–¥ 
 	if (velocity.x < 0)
 		image->reverseLR = false;
 	else
@@ -88,5 +88,5 @@ void ShieldEnemy::MoveMonster(Vector2 velocity)
 	
 	image->ChangeAnim(ANISTATE::LOOP, 0.2f);
 	col->MoveWorldPos(velocity * DELTA * speed);
-	//ÇÃ·¹ÀÌ¾îÀÇ ¹æÇâÀ¸·Î ¿òÁöÀÌ±â
+	//í”Œë ˆì´ì–´ì˜ ë°©í–¥ìœ¼ë¡œ ì›€ì§€ì´ê¸°
 }

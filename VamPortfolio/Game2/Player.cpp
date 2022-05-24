@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 Player::Player()
 {
@@ -69,11 +69,11 @@ void Player::Render()
 void Player::TakeDamage(float damage)
 {
 	if (hp < 0.0f) {
-		//ÇÃ·¹ÀÌ¾î »ç¸Á ÇÏ´Â ½ÃÁ¡
+		//í”Œë ˆì´ì–´ ì‚¬ë§ í•˜ëŠ” ì‹œì 
 	}
 	else {
 		hp -= damage;
-		//ÇÇ°Ý ¹Þ¾ÒÀ» ¶§ ÀÌ¹ÌÁö »ö»ó Á¶±Ý º¯°æ (RED)
+		//í”¼ê²© ë°›ì•˜ì„ ë•Œ ì´ë¯¸ì§€ ìƒ‰ìƒ ì¡°ê¸ˆ ë³€ê²½ (RED)
 	}
 }
 

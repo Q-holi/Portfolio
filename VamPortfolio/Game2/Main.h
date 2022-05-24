@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #define MAXshieldEnemy	5
 
 //commit Test 
@@ -14,9 +14,9 @@ private:
 
 public:
 	virtual void Init() override;
-	virtual void Release() override; //ÇØÁ¦
+	virtual void Release() override; //í•´ì œ
 	virtual void Update() override;
-	virtual void LateUpdate() override;//°»½Å
+	virtual void LateUpdate() override;//ê°±ì‹ 
 	virtual void Render() override;
 	virtual void ResizeScreen() override;
 };
