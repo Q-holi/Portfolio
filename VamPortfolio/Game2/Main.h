@@ -1,13 +1,14 @@
 ﻿#pragma once
 #define MAXshieldEnemy	5
 
-//commit Test 
 class Main : public Scene
 {
 private:
 	Player*			player;
 	ObImage*		bgMap;
 	ShieldEnemy*	shieldEnemy[MAXshieldEnemy];
+	Vector2			minVelocity;
+	float			minVelocityDis;
 
 	float			monsterRespawnTime;
 

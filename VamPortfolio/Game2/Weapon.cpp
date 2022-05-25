@@ -11,7 +11,6 @@ Weapon::~Weapon()
 
 void Weapon::Update()
 {
-
 	for (int i = 0; i < 10; i++) {
 		col[i]->MoveWorldPos(velocity[i] * DELTA);
 		col[i]->Update();
@@ -34,7 +33,6 @@ void Weapon::AttackTimeReset()
 
 void Weapon::Attack(GameObject* firePos)
 {
-
 	col[attackCount]->visible = true;
 	attackImage[attackCount]->visible = true;
 	col[attackCount]->SetWorldPos(firePos->GetWorldPos());
@@ -45,7 +43,7 @@ void Weapon::Attack(GameObject* firePos)
 		attackCount = 0;
 	else
 		attackCount++;
-
-
+	
 	AttackTimeReset();
+
 }
