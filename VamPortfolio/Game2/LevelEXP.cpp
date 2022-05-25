@@ -11,6 +11,7 @@ LevelEXP::LevelEXP()
 	image->scale = col->scale;
 	image->SetParentRT(*col);
 	image->visible = false;
+	image->color = Color(0.5f, 0.5f, 0.5f, 1.0f);
 
 	exp = 100.0f;
 }

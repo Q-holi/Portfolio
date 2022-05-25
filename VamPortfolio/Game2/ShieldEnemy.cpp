@@ -6,12 +6,14 @@ ShieldEnemy::ShieldEnemy()
 	col->scale = Vector2(90.0f / 2.0f, 49.0f) * 2.0f;
 	col->isFilled = false;
 	col->visible = false;
+	col->SetWorldPos(Vector2(FLT_MAX, FLT_MAX));
 
 	image = new ObImage(L"ShieldEnemy.png");
 	image->scale = Vector2(90.0 / 2.0f, 49.0f) * 2.0f;
 	image->maxFrame.x = 2;
 	image->SetParentRT(*col);
 	image->visible = false;
+
 
 	speed = 100.0f;
 	hp = 100.0f;
@@ -28,13 +30,16 @@ void ShieldEnemy::Update()
 
 	col->Update();
 	image->Update();
+	levelEXP->Update();
+
 }
 
 void ShieldEnemy::Render()
 {
 
-	col->Render();
+	//col->Render();
 	image->Render();
+	levelEXP->Render();
 }
 
 void ShieldEnemy::Respawn()
@@ -69,15 +74,14 @@ void ShieldEnemy::Respawn()
 
 void ShieldEnemy::TakeDamage(float damage)
 {
-	if (hp < 0.0f and !levelEXP->col->visible) {
-		levelEXP->col->SetWorldPos(col->GetWorldPos());
-		col->visible = false;
-		image->visible = false;
-		levelEXP->col->visible = true;
-		levelEXP->image->visible = true;
+	if (hp < 0.0f) {
+		DestroyMoster();
 	}
-	else
+	else {
+		cout << "피격당함" << endl;
 		hp -= damage;
+	}
+		
 
 }
 
@@ -92,4 +96,15 @@ void ShieldEnemy::MoveMonster(Vector2 velocity)
 	image->ChangeAnim(ANISTATE::LOOP, 0.2f);
 	col->MoveWorldPos(velocity * DELTA * speed);
 	//플레이어의 방향으로 움지이기
+}
+
+void ShieldEnemy::DestroyMoster()
+{
+	levelEXP->col->SetWorldPos(col->GetWorldPos());
+	col->visible = false;
+	image->visible = false;
+	levelEXP->col->visible = true;
+	levelEXP->image->visible = true;
+	hp = 100.0f;
+
 }

@@ -5,10 +5,10 @@ void Main::Init()
 {
 	player = new Player();
 
-	for (int i = 0; i < MAXshieldEnemy; i++) 
+	for (int i = 0; i < MAXshieldEnemy; i++)
 		shieldEnemy[i] = new ShieldEnemy();
-	
-	
+
+
 	bgMap = new ObImage(L"BackGroundMap.png");
 	bgMap->scale = Vector2(2048.0f, 2048.0f);
 	bgMap->space = SPACE::SCREEN;
@@ -35,30 +35,29 @@ void Main::Update()
 	bgMap->uv.y = 0.0f - CAM->position.y / bgMap->scale.y;
 	bgMap->uv.w = 1.0f - CAM->position.y / bgMap->scale.y;
 
-	CAM->position = player->col->GetWorldPos(); 
+	CAM->position = player->col->GetWorldPos();
 
 	monsterRespawnTime += DELTA;//몬스터 스폰 시간
 	player->weapon[0]->attackTimer -= DELTA; // 플레이어 무기 1번의 공격시간
 
 	minVelocityDis = FLT_MAX;
 	for (int i = 0; i < MAXshieldEnemy; i++) {
-		if (shieldEnemy[i]->hp > 0.0f) {
-			if (monsterRespawnTime >= 2.0f) {
-				if (!shieldEnemy[i]->col->visible and !shieldEnemy[i]->image->visible) {
-					monsterRespawnTime = 0.0f;
-					shieldEnemy[i]->Respawn();
-					cout << i << "번째 몬스터 생성 : X->" << shieldEnemy[i]->col->GetWorldPos().x << "|| y->" << shieldEnemy[i]->col->GetWorldPos().y << endl;
-				}
+		if (monsterRespawnTime >= 2.0f) {
+			if (!shieldEnemy[i]->col->visible and !shieldEnemy[i]->image->visible) {
+				monsterRespawnTime = 0.0f;
+				shieldEnemy[i]->Respawn();
+				cout << i << "번째 몬스터 생성 : X->" << shieldEnemy[i]->col->GetWorldPos().x << "|| y->" << shieldEnemy[i]->col->GetWorldPos().y << endl;
 			}
-			//if (minVelocity.Length() > (player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos()).Length()) {
-			//	minVelocity = player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos();
-			//}
-
-			//플레이어의 방향으로 몬스터 움직이게 하기
-			Vector2 velocity = player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos();
-			velocity.Normalize();
-			shieldEnemy[i]->MoveMonster(velocity);
 		}
+		//if (minVelocity.Length() > (player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos()).Length()) {
+		//	minVelocity = player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos();
+		//}
+
+		//플레이어의 방향으로 몬스터 움직이게 하기
+		Vector2 velocity = player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos();
+		velocity.Normalize();
+		shieldEnemy[i]->MoveMonster(velocity);
+
 		if (shieldEnemy[i]->col->visible and shieldEnemy[i]->image->visible) {
 			//if (minVelocity.Length() > (player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos()).Length()) {
 			if (minVelocityDis > (player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos()).Length()) {
@@ -76,6 +75,7 @@ void Main::Update()
 			player->weapon[0]->Weapon::Attack(player->firePos);
 		}
 	}
+
 	bgMap->Update();
 	for (int i = 0; i < MAXshieldEnemy; i++)
 		shieldEnemy[i]->Update();
@@ -85,13 +85,11 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
-
-
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < MAXshieldEnemy; j++) {
-			if (player->weapon[0]->col[i]->Intersect(shieldEnemy[j]->col)) {
-				player->weapon[0]->col[i]->visible = false;
-				player->weapon[0]->attackImage[i]->visible = false;
+	for (int i = 0; i < MAXshieldEnemy; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (shieldEnemy[i]->col->Intersect(player->weapon[0]->col[j]) and player->weapon[0]->col[j]->visible and shieldEnemy[i]->col->visible) {
+				player->weapon[0]->col[j]->visible = false;
+				shieldEnemy[i]->TakeDamage(player->weapon[0]->damage);
 			}
 		}
 	}

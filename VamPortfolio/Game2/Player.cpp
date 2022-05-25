@@ -61,7 +61,7 @@ void Player::Update()
 void Player::Render()
 {
 
-	col->Render();
+	//col->Render();
 	image->Render();
 	weapon[0]->Weapon::Render();
 }

@@ -12,17 +12,22 @@ Weapon::~Weapon()
 void Weapon::Update()
 {
 	for (int i = 0; i < 10; i++) {
-		col[i]->MoveWorldPos(velocity[i] * DELTA);
+		if (col[i]->visible) {
+			col[i]->MoveWorldPos(velocity[i] * DELTA);
+		}
 		col[i]->Update();
 		attackImage[i]->Update();
 	}
+
 }
 
 void Weapon::Render()
 {
 	for (int i = 0; i < 10; i++) {
-		col[i]->Render();
-		attackImage[i]->Render();
+		if (col[i]->visible) {
+			//col[i]->Render();
+			attackImage[i]->Render();
+		}
 	}
 }
 
@@ -39,11 +44,12 @@ void Weapon::Attack(GameObject* firePos)
 	velocity[attackCount] = firePos->GetRight() * -1.0f * 300.0f;
 	col[attackCount]->rotation = Util::DirToRadian(velocity[attackCount]);
 
+
 	if (attackCount >= 9)
 		attackCount = 0;
 	else
 		attackCount++;
-	
+
 	AttackTimeReset();
 
 }

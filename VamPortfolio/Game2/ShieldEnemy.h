@@ -17,5 +17,6 @@ public :
 
 	void TakeDamage(float damage);
 	void MoveMonster(Vector2 velocity);
+	void DestroyMoster();
 };
 

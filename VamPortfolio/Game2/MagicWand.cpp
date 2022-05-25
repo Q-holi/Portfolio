@@ -7,6 +7,7 @@ MagicWand::MagicWand()
 		col[i]->scale = Vector2(25.0f, 12.0f) * 2.0f;
 		col[i]->isFilled = false;
 		col[i]->visible = false;
+		col[i]->SetWorldPos(Vector2(0.0f, 0.0f));
 
 		attackImage[i] = new ObImage(L"MagicAttack.png");
 		attackImage[i]->scale = Vector2(25.0f, 12.0f) * 2.0f;
