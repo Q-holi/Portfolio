@@ -8,3 +8,4 @@
 #include "LevelEXP.h"
 #include "Weapon.h"
 #include "MagicWand.h"
+#include "PlayerInven.h"

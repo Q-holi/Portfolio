@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="PlayerInven.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="LevelEXP.h" />
     <ClInclude Include="MagicWand.h" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="PlayerInven.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="LevelEXP.cpp" />
     <ClCompile Include="MagicWand.cpp" />

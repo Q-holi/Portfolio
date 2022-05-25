@@ -14,7 +14,7 @@ MagicWand::MagicWand()
 		attackImage[i]->SetParentRT(*col[i]);
 		//velocity[i] = Vector2(0.0f, 0.0f);
 	}
-	
+	image = new ObImage(L"MagicWand.png");
 	damage = 10.0f;
 	level = 1;
 	attackTime = 0.2f;

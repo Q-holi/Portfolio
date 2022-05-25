@@ -13,9 +13,13 @@ void Main::Init()
 	bgMap->scale = Vector2(2048.0f, 2048.0f);
 	bgMap->space = SPACE::SCREEN;
 
+	for (int i = 0; i < 6; i++) {
+		playerInven[i] = new PlayerInven();
+		playerInven[i]->playerInven->SetLocalPos(Vector2(-App.GetHalfWidth() + i * 50.0f,App.GetHalfHeight()));
+	}
+	
+
 	monsterRespawnTime = 5.0f;
-
-
 	minVelocity = Vector2(9999.0f, 9999.0f);
 }
 
@@ -81,6 +85,9 @@ void Main::Update()
 		shieldEnemy[i]->Update();
 
 	player->Update();
+	for (int i = 0; i < 6; i++) {
+		playerInven[i]->Update();
+	}
 }
 
 void Main::LateUpdate()
@@ -93,6 +100,7 @@ void Main::LateUpdate()
 			}
 		}
 	}
+	PlayerLevelUP();
 }
 void Main::Render()
 {
@@ -101,9 +109,17 @@ void Main::Render()
 		shieldEnemy[i]->Render();
 
 	player->Render();
+	for (int i = 0; i < 6; i++) {
+		playerInven[i]->Render();
+	}
 }
 
 void Main::ResizeScreen()
+{
+
+}
+
+void Main::PlayerLevelUP()
 {
 
 }

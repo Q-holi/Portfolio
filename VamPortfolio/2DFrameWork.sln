@@ -36,10 +36,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{AA3A97
 		Contents\Images\enemy.png = Contents\Images\enemy.png
 		Contents\Images\enemy2.png = Contents\Images\enemy2.png
 		Contents\Images\EXP.png = Contents\Images\EXP.png
+		Contents\Images\InventoryEmpty.png = Contents\Images\InventoryEmpty.png
 		Contents\Images\Knife-1.png = Contents\Images\Knife-1.png
 		Contents\Images\Knife-2.png = Contents\Images\Knife-2.png
 		Contents\Images\MagicAttack.png = Contents\Images\MagicAttack.png
+		Contents\Images\MagicWand.png = Contents\Images\MagicWand.png
 		Contents\Images\Player1.png = Contents\Images\Player1.png
+		Contents\Images\RED_EXP.png = Contents\Images\RED_EXP.png
 		Contents\Images\ShieldEnemy.png = Contents\Images\ShieldEnemy.png
 	EndProjectSection
 EndProject

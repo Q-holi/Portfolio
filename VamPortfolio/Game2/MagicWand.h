@@ -3,8 +3,6 @@ class MagicWand : public Weapon
 {
 public:
 
-
-
 	MagicWand();
 	~MagicWand();
 
