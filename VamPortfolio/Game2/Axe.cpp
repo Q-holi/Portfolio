@@ -21,7 +21,7 @@ Axe::Axe()
 
 	damage = 50.0f;
 	level = 1;
-	attackTime = 0.8f;
+	attackTime = 1.5f;
 	attackTimer = attackTime;
 	attackCount = 0;
 

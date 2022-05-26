@@ -53,7 +53,7 @@ void Main::Update()
 			if (!shieldEnemy[i]->col->visible and !shieldEnemy[i]->image->visible) {
 				monsterRespawnTime = 0.0f;
 				shieldEnemy[i]->Respawn();
-				cout << i << "번째 몬스터 생성 : X->" << shieldEnemy[i]->col->GetWorldPos().x << "|| y->" << shieldEnemy[i]->col->GetWorldPos().y << endl;
+				//cout << i << "번째 몬스터 생성 : X->" << shieldEnemy[i]->col->GetWorldPos().x << "|| y->" << shieldEnemy[i]->col->GetWorldPos().y << endl;
 			}
 		}
 
@@ -107,10 +107,36 @@ void Main::LateUpdate()
 				player->weapon[0]->attackImage[j]->visible = false;
 				if (shieldEnemy[i]->TakeDamage(player->weapon[0]->damage)) {
 					levelExp.push_back(new LevelEXP(shieldEnemy[i]->col->GetWorldPos()));
+					cout << "겅험치 생성" << endl;
+				}
+			}
+		}
+		for (int j = 0; j < player->weapon[1]->col.size(); j++) {
+			if (shieldEnemy[i]->col->Intersect(player->weapon[1]->col[j]) and player->weapon[1]->col[j]->visible and shieldEnemy[i]->col->visible) {
+				player->weapon[1]->col[j]->visible = false;
+				player->weapon[1]->attackImage[j]->visible = false;
+				if (shieldEnemy[i]->TakeDamage(player->weapon[1]->damage)) {
+					levelExp.push_back(new LevelEXP(shieldEnemy[i]->col->GetWorldPos()));
+					cout << "겅험치 생성" << endl;
 				}
 			}
 		}
 	}
+
+
+	for (int i = 0; i < levelExp.size(); i++) {
+		levelExp[i]->col->visible = true;
+		levelExp[i]->image->visible = true;
+		levelExp[i]->Update();
+	}
+	//for (int i = 0; levelExp.size(); i++) {
+	//	if (player->col->Intersect(levelExp[i]->col) and levelExp[i]->col->visible and levelExp[i]->image->visible) {
+	//		cout << "겅험치 드랍" << endl;
+	//		player->GetLevelEXP(levelExp[i]->exp);
+	//		levelExp[i]->~LevelEXP();
+	//		levelExp.erase(levelExp.begin() + i);
+	//	}
+	//}
 	PlayerLevelUP();
 }
 void Main::Render()

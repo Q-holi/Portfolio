@@ -74,7 +74,7 @@ bool ShieldEnemy::TakeDamage(float damage)
 		return true;
 	}
 	else {
-		cout << "피격당함" << endl;
+		//cout << "피격당함" << endl;
 		hp -= damage;
 		return false;
 	}
