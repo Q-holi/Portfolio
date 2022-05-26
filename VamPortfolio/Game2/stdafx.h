@@ -13,4 +13,5 @@
 #include "Weapon.h"
 #include "MagicWand.h"
 #include "Axe.h"
+#include "KingBible.h"
 

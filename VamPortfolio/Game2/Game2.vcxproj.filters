@@ -27,6 +27,9 @@
     <ClInclude Include="Axe.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="KingBible.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -52,6 +55,9 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="KingBible.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>

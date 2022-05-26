@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Axe.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="KingBible.h" />
     <ClInclude Include="PlayerInven.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="LevelEXP.h" />
@@ -33,6 +34,7 @@
   <ItemGroup>
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="KingBible.cpp" />
     <ClCompile Include="PlayerInven.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="LevelEXP.cpp" />
