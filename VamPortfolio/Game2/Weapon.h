@@ -1,17 +1,23 @@
 ﻿#pragma once
+enum class WEAPONTYPE {
+	AXE,
+	MAGICWAND,
+	KINGBIBLE
+};
 
 class Weapon
 {
 public:
-	ObImage*		image;
 	ObImage*		attackImage[10];
 	ObRect*			col[10];
+	Vector2			velocity[10];
 	float			damage;
+	float			gravity[10];
 	int				level;
 	float			attackTimer;
 	float			attackTime;
-	Vector2			velocity[10];
 	int				attackCount;
+	WEAPONTYPE		weaponType;
 	Weapon();
 	~Weapon();
 

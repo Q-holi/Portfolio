@@ -8,19 +8,20 @@ void Main::Init()
 	for (int i = 0; i < MAXshieldEnemy; i++)
 		shieldEnemy[i] = new ShieldEnemy();
 
-
 	bgMap = new ObImage(L"BackGroundMap.png");
 	bgMap->scale = Vector2(2048.0f, 2048.0f);
 	bgMap->space = SPACE::SCREEN;
 
 	for (int i = 0; i < 6; i++) {
 		playerInven[i] = new PlayerInven();
-		playerInven[i]->playerInven->SetLocalPos(Vector2(-App.GetHalfWidth() + i * 50.0f,App.GetHalfHeight()));
+		playerInven[i]->playerInven->SetLocalPos(Vector2(-App.GetHalfWidth() + i * 50.0f, App.GetHalfHeight()));
 	}
-	
+
 
 	monsterRespawnTime = 5.0f;
 	minVelocity = Vector2(9999.0f, 9999.0f);
+
+	testTime = 5.0f;
 }
 
 void Main::Release()
@@ -43,6 +44,8 @@ void Main::Update()
 
 	monsterRespawnTime += DELTA;//몬스터 스폰 시간
 	player->weapon[0]->attackTimer -= DELTA; // 플레이어 무기 1번의 공격시간
+	player->weapon[1]->attackTimer -= DELTA; // 플레이어 무기 1번의 공격시간
+	testTime -= DELTA;
 
 	minVelocityDis = FLT_MAX;
 	for (int i = 0; i < MAXshieldEnemy; i++) {
@@ -80,6 +83,11 @@ void Main::Update()
 		}
 	}
 
+	if (player->weapon[1]->attackTimer < 0.0f) {
+		player->weapon[1]->Weapon::Attack(player->firePos);
+	}
+
+
 	bgMap->Update();
 	for (int i = 0; i < MAXshieldEnemy; i++)
 		shieldEnemy[i]->Update();
@@ -96,6 +104,7 @@ void Main::LateUpdate()
 		for (int j = 0; j < 10; j++) {
 			if (shieldEnemy[i]->col->Intersect(player->weapon[0]->col[j]) and player->weapon[0]->col[j]->visible and shieldEnemy[i]->col->visible) {
 				player->weapon[0]->col[j]->visible = false;
+				player->weapon[0]->attackImage[j]->visible = false;
 				shieldEnemy[i]->TakeDamage(player->weapon[0]->damage);
 			}
 		}
@@ -121,6 +130,20 @@ void Main::ResizeScreen()
 
 void Main::PlayerLevelUP()
 {
+	for (int i = 0; i < 2; i++) {
+
+		if (player->weapon[i]->weaponType == WEAPONTYPE::MAGICWAND) {
+			playerInven[i]->playerInvenItem->uv.x = 1.0 / 3.0f;
+			playerInven[i]->playerInvenItem->uv.z = 1.0 / 3.0f * 2.0f;
+			playerInven[i]->playerInvenItem->visible = true;
+		}
+		if (player->weapon[i]->weaponType == WEAPONTYPE::AXE) {
+			playerInven[i]->playerInvenItem->uv.x = 0.0;
+			playerInven[i]->playerInvenItem->uv.z = 1.0 / 3.0f;
+			playerInven[i]->playerInvenItem->visible = true;
+		}
+
+	}
 
 }
 

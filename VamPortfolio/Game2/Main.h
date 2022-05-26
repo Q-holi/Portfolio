@@ -11,7 +11,7 @@ private:
 	Vector2			minVelocity;
 	float			minVelocityDis;
 	float			monsterRespawnTime;//몬스터 생성 속도
-
+	float			testTime;
 
 public:
 	virtual void Init() override;

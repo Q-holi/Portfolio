@@ -13,6 +13,7 @@ struct Player
 	
 	class Weapon*			weapon[6];
 
+
 	Player();
 	~Player();
 	void Update();

@@ -32,11 +32,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Txt", "Txt", "{BC1DD457-26F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{AA3A97C7-996A-4491-9D90-867FBF205B7A}"
 	ProjectSection(SolutionItems) = preProject
+		Contents\Images\Axe.png = Contents\Images\Axe.png
 		Contents\Images\BackGroundMap.png = Contents\Images\BackGroundMap.png
 		Contents\Images\enemy.png = Contents\Images\enemy.png
 		Contents\Images\enemy2.png = Contents\Images\enemy2.png
 		Contents\Images\EXP.png = Contents\Images\EXP.png
 		Contents\Images\InventoryEmpty.png = Contents\Images\InventoryEmpty.png
+		Contents\Images\Items.png = Contents\Images\Items.png
 		Contents\Images\Knife-1.png = Contents\Images\Knife-1.png
 		Contents\Images\Knife-2.png = Contents\Images\Knife-2.png
 		Contents\Images\MagicAttack.png = Contents\Images\MagicAttack.png

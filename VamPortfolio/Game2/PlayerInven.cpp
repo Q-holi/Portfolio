@@ -7,11 +7,13 @@ PlayerInven::PlayerInven()
 	playerInven->pivot = OFFSET_LT;
 	playerInven->space = SPACE::SCREEN;
 
-	playerInvenItem = new ObImage(L"InventoryEmpty.png");
-	playerInvenItem->scale = Vector2(28.0f, 28.0f) * 2.0f;
+	playerInvenItem = new ObImage(L"Items.png");
+	playerInvenItem->scale = Vector2(28.0f , 28.0f) * 2.0f;
 	playerInvenItem->pivot = OFFSET_LT;
 	playerInvenItem->space = SPACE::SCREEN;
+	playerInvenItem->frame.x = 3;
 	playerInvenItem->visible = false;
+	playerInvenItem->SetParentRT(*playerInven);
 }
 
 PlayerInven::~PlayerInven()

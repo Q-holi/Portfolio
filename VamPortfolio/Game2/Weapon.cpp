@@ -11,20 +11,44 @@ Weapon::~Weapon()
 
 void Weapon::Update()
 {
-	for (int i = 0; i < 10; i++) {
-		if (col[i]->visible) {
-			col[i]->MoveWorldPos(velocity[i] * DELTA);
+	if (weaponType == WEAPONTYPE::MAGICWAND) {
+		for (int i = 0; i < 10; i++) {
+			if (col[i]->visible) {
+				col[i]->MoveWorldPos(velocity[i] * DELTA);
+			}
+			col[i]->Update();
+			attackImage[i]->Update();
 		}
-		col[i]->Update();
-		attackImage[i]->Update();
 	}
-
+	else if (weaponType == WEAPONTYPE::AXE) {
+		for (int i = 0; i < 3; i++) {
+			if (col[i]->visible) {
+				col[i]->MoveWorldPos(velocity[i] * DELTA);
+			}
+			col[i]->Update();
+			attackImage[i]->Update();
+		}
+	}
 }
 
 void Weapon::Render()
 {
-	for (int i = 0; i < 10; i++) {
-		if (col[i]->visible) {
+	if (weaponType == WEAPONTYPE::MAGICWAND) {
+		for (int i = 0; i < 10; i++) {
+			if (col[i]->visible) {
+				col[i]->MoveWorldPos(velocity[i] * DELTA);
+			}
+			//col[i]->Render();
+			attackImage[i]->Render();
+		}
+	}
+	else if (weaponType == WEAPONTYPE::AXE) {
+		for (int i = 0; i < 3; i++) {
+			if (col[i]->visible) {
+				col[i]->MoveWorldPos(DOWN * gravity[i] * DELTA);
+				col[i]->rotation += DELTA *4.0f;
+				gravity[i] += 700.0f * DELTA;
+			}
 			//col[i]->Render();
 			attackImage[i]->Render();
 		}
@@ -38,17 +62,29 @@ void Weapon::AttackTimeReset()
 
 void Weapon::Attack(GameObject* firePos)
 {
-	col[attackCount]->visible = true;
-	attackImage[attackCount]->visible = true;
-	col[attackCount]->SetWorldPos(firePos->GetWorldPos());
-	velocity[attackCount] = firePos->GetRight() * -1.0f * 300.0f;
-	col[attackCount]->rotation = Util::DirToRadian(velocity[attackCount]);
+	if (weaponType == WEAPONTYPE::MAGICWAND) {
+		col[attackCount]->visible = true;
+		attackImage[attackCount]->visible = true;
+		col[attackCount]->SetWorldPos(firePos->GetWorldPos());
+		velocity[attackCount] = firePos->GetRight() * -1.0f * 300.0f;
+		col[attackCount]->rotation = Util::DirToRadian(velocity[attackCount]);
 
+		if (attackCount >= 9)
+			attackCount = 0;
+		else
+			attackCount++;
+	}
+	else if (weaponType == WEAPONTYPE::AXE) {
+		col[attackCount]->visible = true;
+		attackImage[attackCount]->visible = true;
+		col[attackCount]->SetWorldPos(firePos->GetWorldPos());
+		gravity[attackCount] = -700.0f;
 
-	if (attackCount >= 9)
-		attackCount = 0;
-	else
-		attackCount++;
+		if (attackCount >= 2)
+			attackCount = 0;
+		else
+			attackCount++;
+	}
 
 	AttackTimeReset();
 

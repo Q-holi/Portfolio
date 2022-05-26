@@ -6,6 +6,11 @@
 #include "Enemy.h"
 #include "ShieldEnemy.h"
 #include "LevelEXP.h"
+#include "PlayerInven.h"
+
+
+//--플레이어 무기 
 #include "Weapon.h"
 #include "MagicWand.h"
-#include "PlayerInven.h"
+#include "Axe.h"
+

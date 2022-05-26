@@ -19,6 +19,7 @@ Player::Player()
 
 	speed = 200.0f;
 	weapon[0] = new MagicWand();
+	weapon[1] = new Axe();
 }
 
 Player::~Player()
@@ -55,7 +56,10 @@ void Player::Update()
 	col->Update();
 	image->Update();
 	firePos->Update();
-	weapon[0]->Weapon::Update();
+	for (int i = 0; i < 2; i++) {
+		weapon[i]->Weapon::Update();
+	}
+	
 }
 
 void Player::Render()
@@ -63,7 +67,9 @@ void Player::Render()
 
 	//col->Render();
 	image->Render();
-	weapon[0]->Weapon::Render();
+	for (int i = 0; i < 2; i++) {
+		weapon[i]->Weapon::Render();
+	}
 }
 
 void Player::TakeDamage(float damage)
