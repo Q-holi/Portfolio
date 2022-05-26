@@ -17,7 +17,6 @@ void Main::Init()
 		playerInven[i]->playerInven->SetLocalPos(Vector2(-App.GetHalfWidth() + i * 50.0f, App.GetHalfHeight()));
 	}
 
-
 	monsterRespawnTime = 5.0f;
 	minVelocity = Vector2(9999.0f, 9999.0f);
 
@@ -33,7 +32,6 @@ void Main::Release()
 //D3D->GetDC()->OMSetBlendState(GameObject::blendStateOn, NULL, 0xFF);
 void Main::Update()
 {
-
 	bgMap->uv.x = 0.0f + CAM->position.x / bgMap->scale.x;
 	bgMap->uv.z = 1.0f + CAM->position.x / bgMap->scale.x;
 
@@ -43,8 +41,10 @@ void Main::Update()
 	CAM->position = player->col->GetWorldPos();
 
 	monsterRespawnTime += DELTA;//몬스터 스폰 시간
-	player->weapon[0]->attackTimer -= DELTA; // 플레이어 무기 1번의 공격시간
-	player->weapon[1]->attackTimer -= DELTA; // 플레이어 무기 1번의 공격시간
+
+	for(int i =0; i<player->weapon.size();i++)
+		player->weapon[i]->attackTimer -= DELTA; // 플레이어 각각의무기  공격시간
+
 	testTime -= DELTA;
 
 	minVelocityDis = FLT_MAX;
@@ -56,9 +56,6 @@ void Main::Update()
 				cout << i << "번째 몬스터 생성 : X->" << shieldEnemy[i]->col->GetWorldPos().x << "|| y->" << shieldEnemy[i]->col->GetWorldPos().y << endl;
 			}
 		}
-		//if (minVelocity.Length() > (player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos()).Length()) {
-		//	minVelocity = player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos();
-		//}
 
 		//플레이어의 방향으로 몬스터 움직이게 하기
 		Vector2 velocity = player->col->GetWorldPos() - shieldEnemy[i]->col->GetWorldPos();
@@ -96,16 +93,21 @@ void Main::Update()
 	for (int i = 0; i < 6; i++) {
 		playerInven[i]->Update();
 	}
+	for (int i = 0; i < levelExp.size(); i++) {
+		levelExp[i]->Update();
+	}
 }
 
 void Main::LateUpdate()
 {
 	for (int i = 0; i < MAXshieldEnemy; i++) {
-		for (int j = 0; j < 10; j++) {
+		for (int j = 0; j < player->weapon[0]->col.size(); j++) {
 			if (shieldEnemy[i]->col->Intersect(player->weapon[0]->col[j]) and player->weapon[0]->col[j]->visible and shieldEnemy[i]->col->visible) {
 				player->weapon[0]->col[j]->visible = false;
 				player->weapon[0]->attackImage[j]->visible = false;
-				shieldEnemy[i]->TakeDamage(player->weapon[0]->damage);
+				if (shieldEnemy[i]->TakeDamage(player->weapon[0]->damage)) {
+					levelExp.push_back(new LevelEXP(shieldEnemy[i]->col->GetWorldPos()));
+				}
 			}
 		}
 	}
@@ -121,6 +123,10 @@ void Main::Render()
 	for (int i = 0; i < 6; i++) {
 		playerInven[i]->Render();
 	}
+
+	for (int i = 0; i < levelExp.size(); i++) {
+		levelExp[i]->Render();
+	}
 }
 
 void Main::ResizeScreen()
@@ -130,7 +136,7 @@ void Main::ResizeScreen()
 
 void Main::PlayerLevelUP()
 {
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < player->weapon.size(); i++) {
 
 		if (player->weapon[i]->weaponType == WEAPONTYPE::MAGICWAND) {
 			playerInven[i]->playerInvenItem->uv.x = 1.0 / 3.0f;

@@ -15,7 +15,7 @@ public :
 	void Render()override;
 	void Respawn()override;
 
-	void TakeDamage(float damage);
+	bool TakeDamage(float damage);
 	void MoveMonster(Vector2 velocity);
 	void DestroyMoster();
 };

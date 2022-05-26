@@ -7,7 +7,7 @@ public:
 	ObCircle*	col;
 	float		exp;
 
-	LevelEXP();
+	LevelEXP(Vector2 creatPos);
 	~LevelEXP();
 
 	void Update();

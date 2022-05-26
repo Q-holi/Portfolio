@@ -27,19 +27,14 @@ ShieldEnemy::~ShieldEnemy()
 
 void ShieldEnemy::Update()
 {
-
 	col->Update();
 	image->Update();
-	levelEXP->Update();
-
 }
 
 void ShieldEnemy::Render()
 {
-
 	//col->Render();
 	image->Render();
-	levelEXP->Render();
 }
 
 void ShieldEnemy::Respawn()
@@ -72,14 +67,16 @@ void ShieldEnemy::Respawn()
 	image->Update();
 }
 
-void ShieldEnemy::TakeDamage(float damage)
+bool ShieldEnemy::TakeDamage(float damage)
 {
 	if (hp < 0.0f) {
 		DestroyMoster();
+		return true;
 	}
 	else {
 		cout << "피격당함" << endl;
 		hp -= damage;
+		return false;
 	}
 		
 
@@ -100,11 +97,7 @@ void ShieldEnemy::MoveMonster(Vector2 velocity)
 
 void ShieldEnemy::DestroyMoster()
 {
-	levelEXP->col->SetWorldPos(col->GetWorldPos());
 	col->visible = false;
 	image->visible = false;
-	levelEXP->col->visible = true;
-	levelEXP->image->visible = true;
 	hp = 100.0f;
-
 }

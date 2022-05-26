@@ -2,7 +2,6 @@
 class Enemy
 {
 public:
-	class LevelEXP* levelEXP;
 
 	Enemy();
 	~Enemy();
