@@ -18,11 +18,12 @@ Player::Player()
 	levelEXP = 0.0f;
 
 	speed = 200.0f;
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 3; i++) {
 		weapon.push_back(new Weapon);
 	}
 	weapon[0] = new MagicWand();
 	weapon[1] = new Axe();
+	weapon[2] = new KingBible();
 }
 
 Player::~Player()

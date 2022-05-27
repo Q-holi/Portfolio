@@ -17,12 +17,15 @@ public:
 	vector<Vector2>		velocity;
 	vector<float>		gravity;
 
+	GameObject*			kingBible;
 	float				damage;
 	int					level;
 	float				attackTimer;
 	float				attackTime;
 	int					attackCount;
 	WEAPONTYPE			weaponType;
+
+	GameObject*			kbfirePos;
 	Weapon();
 	~Weapon();
 

@@ -20,7 +20,7 @@ void Main::Init()
 	monsterRespawnTime = 5.0f;
 	minVelocity = Vector2(9999.0f, 9999.0f);
 
-	testTime = 5.0f;
+	testTime = 10.0f;
 }
 
 void Main::Release()
@@ -41,11 +41,12 @@ void Main::Update()
 	CAM->position = player->col->GetWorldPos();
 
 	monsterRespawnTime += DELTA;//몬스터 스폰 시간
+	testTime -= DELTA;
 
 	for(int i =0; i<player->weapon.size();i++)
 		player->weapon[i]->attackTimer -= DELTA; // 플레이어 각각의무기  공격시간
 
-	testTime -= DELTA;
+
 
 	minVelocityDis = FLT_MAX;
 	for (int i = 0; i < MAXshieldEnemy; i++) {
@@ -84,6 +85,12 @@ void Main::Update()
 		player->weapon[1]->Weapon::Attack(player->firePos);
 	}
 
+	if (testTime < 0.0f) {
+		cout << "성경 소환" << endl;
+		player->firePos->Update();
+		player->weapon[2]->Weapon::Attack(player->col);
+		testTime = 20.0f;
+	}
 
 	bgMap->Update();
 	for (int i = 0; i < MAXshieldEnemy; i++)
@@ -127,7 +134,6 @@ void Main::LateUpdate()
 	for (int i = 0; i < levelExp.size(); i++) {
 		levelExp[i]->col->visible = true;
 		levelExp[i]->image->visible = true;
-		levelExp[i]->Update();
 	}
 	//for (int i = 0; levelExp.size(); i++) {
 	//	if (player->col->Intersect(levelExp[i]->col) and levelExp[i]->col->visible and levelExp[i]->image->visible) {
@@ -163,15 +169,19 @@ void Main::ResizeScreen()
 void Main::PlayerLevelUP()
 {
 	for (int i = 0; i < player->weapon.size(); i++) {
-
+		if (player->weapon[i]->weaponType == WEAPONTYPE::AXE) {
+			playerInven[i]->playerInvenItem->uv.x = 0.0;
+			playerInven[i]->playerInvenItem->uv.z = 1.0 / 3.0f;
+			playerInven[i]->playerInvenItem->visible = true;
+		}
 		if (player->weapon[i]->weaponType == WEAPONTYPE::MAGICWAND) {
 			playerInven[i]->playerInvenItem->uv.x = 1.0 / 3.0f;
 			playerInven[i]->playerInvenItem->uv.z = 1.0 / 3.0f * 2.0f;
 			playerInven[i]->playerInvenItem->visible = true;
 		}
-		if (player->weapon[i]->weaponType == WEAPONTYPE::AXE) {
-			playerInven[i]->playerInvenItem->uv.x = 0.0;
-			playerInven[i]->playerInvenItem->uv.z = 1.0 / 3.0f;
+		if (player->weapon[i]->weaponType == WEAPONTYPE::KINGBIBLE) {
+			playerInven[i]->playerInvenItem->uv.x = 1.0 / 3.0f * 2.0f;
+			playerInven[i]->playerInvenItem->uv.z = 1.0 / 3.0f * 3.0f;
 			playerInven[i]->playerInvenItem->visible = true;
 		}
 
