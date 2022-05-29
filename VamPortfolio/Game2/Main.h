@@ -1,6 +1,16 @@
 ﻿#pragma once
 #define MAXshieldEnemy	10
-
+//struct Item {
+//public:
+//
+//	ObImage* image;
+//	ObRect* col;
+//	int		itemType;
+//
+//
+//	Item();
+//	~Item();
+//};
 class Main : public Scene
 {
 private:
@@ -13,6 +23,7 @@ private:
 	float						minVelocityDis;
 	float						monsterRespawnTime;//몬스터 생성 속도
 	float						testTime;
+	//Item*						randomItem;
 
 public:
 	virtual void Init() override;

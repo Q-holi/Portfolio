@@ -5,6 +5,7 @@ struct Player
 	ObImage*		image;
 	ObRect*			col;
 	GameObject*		firePos;	
+	ObRect*			levelBar;	
 	float			speed;
 	float			hp;
 	float			levelEXP;

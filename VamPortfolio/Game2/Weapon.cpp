@@ -11,7 +11,6 @@ Weapon::~Weapon()
 
 void Weapon::Update()
 {
-
 	if (weaponType == WEAPONTYPE::MAGICWAND) {
 		for (int i = 0; i < col.size(); i++) {
 			if (col[i]->visible) {
@@ -120,17 +119,14 @@ void Weapon::Attack(GameObject* firePos)
 		attackCount++;
 	}
 	else if (weaponType == WEAPONTYPE::KINGBIBLE) {
-		cout << "성경 생성 시작" << endl;
 		for (int i = 0; i < col.size(); i++) {
 			firePos->Update();
-			cout << i + 1 << "번 책 생성완료" << endl;
 			col[i]->SetParentRT(*firePos);
 			col[i]->SetLocalPosX(cosf((360.0f / col.size()) * (i + 1) * ToRadian) * 250.0f);
 			col[i]->SetLocalPosY(sinf((360.0f / col.size()) * (i + 1) * ToRadian) * 250.0f);
 			col[i]->visible = true;
 			attackImage[i]->visible = true;
 		}
-		cout << "성경 생성 완료" << endl;
 	}
 
 	AttackTimeReset();

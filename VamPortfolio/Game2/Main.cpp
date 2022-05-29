@@ -14,7 +14,7 @@ void Main::Init()
 
 	for (int i = 0; i < 6; i++) {
 		playerInven[i] = new PlayerInven();
-		playerInven[i]->playerInven->SetLocalPos(Vector2(-App.GetHalfWidth() + i * 50.0f, App.GetHalfHeight()));
+		playerInven[i]->playerInven->SetLocalPos(Vector2(-App.GetHalfWidth() + i * 50.0f, App.GetHalfHeight() - 10.0f));
 	}
 
 	monsterRespawnTime = 5.0f;
@@ -28,7 +28,7 @@ void Main::Release()
 
 }
 
-//D3D->GetDC()->OMSetBlendState(GameObject::blendStateOff, NULL, 0xFF);
+//D3D->GetDC()->OMSetBlen							dState(GameObject::blendStateOff, NULL, 0xFF);
 //D3D->GetDC()->OMSetBlendState(GameObject::blendStateOn, NULL, 0xFF);
 void Main::Update()
 {
@@ -43,7 +43,7 @@ void Main::Update()
 	monsterRespawnTime += DELTA;//몬스터 스폰 시간
 	testTime -= DELTA;
 
-	for(int i =0; i<player->weapon.size();i++)
+	for (int i = 0; i < player->weapon.size(); i++)
 		player->weapon[i]->attackTimer -= DELTA; // 플레이어 각각의무기  공격시간
 
 
@@ -86,7 +86,6 @@ void Main::Update()
 	}
 
 	if (testTime < 0.0f) {
-		cout << "성경 소환" << endl;
 		player->firePos->Update();
 		player->weapon[2]->Weapon::Attack(player->col);
 		testTime = 20.0f;
@@ -107,6 +106,17 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
+
+	for (int i = 0; i < levelExp.size(); i++) {
+		if (player->col->Intersect(levelExp[i]->col) and levelExp[i]->col->visible and levelExp[i]->image->visible) {
+			cout << "겅험치 드랍" << endl;
+			player->GetLevelEXP(levelExp[i]->exp);
+			levelExp[i]->col->visible = false;
+			levelExp[i]->image->visible = false;
+		}
+	}
+
+	int count = 0;
 	for (int i = 0; i < MAXshieldEnemy; i++) {
 		for (int j = 0; j < player->weapon[0]->col.size(); j++) {
 			if (shieldEnemy[i]->col->Intersect(player->weapon[0]->col[j]) and player->weapon[0]->col[j]->visible and shieldEnemy[i]->col->visible) {
@@ -114,8 +124,8 @@ void Main::LateUpdate()
 				player->weapon[0]->attackImage[j]->visible = false;
 				if (shieldEnemy[i]->TakeDamage(player->weapon[0]->damage)) {
 					levelExp.push_back(new LevelEXP(shieldEnemy[i]->col->GetWorldPos()));
-					cout << "겅험치 생성" << endl;
 				}
+
 			}
 		}
 		for (int j = 0; j < player->weapon[1]->col.size(); j++) {
@@ -124,26 +134,28 @@ void Main::LateUpdate()
 				player->weapon[1]->attackImage[j]->visible = false;
 				if (shieldEnemy[i]->TakeDamage(player->weapon[1]->damage)) {
 					levelExp.push_back(new LevelEXP(shieldEnemy[i]->col->GetWorldPos()));
-					cout << "겅험치 생성" << endl;
 				}
 			}
 		}
-	}
+		for (int j = 0; j < player->weapon[2]->col.size(); j++) {
+			if (shieldEnemy[i]->col->Intersect(player->weapon[2]->col[j]) and player->weapon[2]->col[j]->visible and shieldEnemy[i]->col->visible) {
+				if (shieldEnemy[i]->TakeDamage(player->weapon[2]->damage)) {
+					levelExp.push_back(new LevelEXP(shieldEnemy[i]->col->GetWorldPos()));
+				}
+			}
+		}
 
+	}
 
 	for (int i = 0; i < levelExp.size(); i++) {
-		levelExp[i]->col->visible = true;
-		levelExp[i]->image->visible = true;
+		levelExp[i]->Update();
 	}
-	//for (int i = 0; levelExp.size(); i++) {
-	//	if (player->col->Intersect(levelExp[i]->col) and levelExp[i]->col->visible and levelExp[i]->image->visible) {
-	//		cout << "겅험치 드랍" << endl;
-	//		player->GetLevelEXP(levelExp[i]->exp);
-	//		levelExp[i]->~LevelEXP();
-	//		levelExp.erase(levelExp.begin() + i);
-	//	}
-	//}
+
 	PlayerLevelUP();
+	if (player->levelEXP >= 100.0f) {
+		player->GetItem();
+	}
+	
 }
 void Main::Render()
 {
@@ -186,14 +198,13 @@ void Main::PlayerLevelUP()
 		}
 
 	}
-
 }
 
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPWSTR param, int command)
 {
 	App.SetAppName(L"VampireSurvivors");
 	App.SetInstance(instance);
-	App.InitWidthHeight(1536.0f, 972.0f);
+	App.InitWidthHeight(1920.0f, 1080.0f);
 	Main* main = new Main();
 	int wParam = (int)WIN->Run(main);
 	WIN->DeleteSingleton();

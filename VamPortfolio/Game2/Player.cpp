@@ -24,6 +24,13 @@ Player::Player()
 	weapon[0] = new MagicWand();
 	weapon[1] = new Axe();
 	weapon[2] = new KingBible();
+
+	levelBar = new ObRect();
+	levelBar->scale = Vector2(0.0f, 20.0f);
+	levelBar->SetLocalPos(Vector2(-App.GetHalfWidth(), App.GetHalfHeight()));
+	levelBar->color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+	levelBar->space = SPACE::SCREEN;
+
 }
 
 Player::~Player()
@@ -34,6 +41,7 @@ Player::~Player()
 
 void Player::Update()
 {
+	levelBar->scale.x = (levelEXP * 0.01f) * App.GetWidth() * 2.0f;
 	dir = Vector2(0.0f, 0.0f);
 
 	if (INPUT->KeyPress(VK_RIGHT))
@@ -54,12 +62,12 @@ void Player::Update()
 		dir.y = -1.0f;
 
 
-
 	dir.Normalize();
 	col->MoveWorldPos(dir * speed * DELTA);
 	col->Update();
 	image->Update();
 	firePos->Update();
+	levelBar->Update();
 	for (int i = 0; i < weapon.size(); i++) {
 		weapon[i]->Weapon::Update();
 	}
@@ -68,12 +76,12 @@ void Player::Update()
 
 void Player::Render()
 {
-
 	//col->Render();
 	image->Render();
 	for (int i = 0; i < weapon.size(); i++) {
 		weapon[i]->Weapon::Render();
 	}
+	levelBar->Render();
 }
 
 void Player::TakeDamage(float damage)
@@ -94,6 +102,6 @@ void Player::GetLevelEXP(float levelEXP)
 
 void Player::GetItem()
 {
-
+	levelEXP = 0.0f;
 }
 

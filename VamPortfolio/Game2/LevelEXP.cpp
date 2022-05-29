@@ -7,14 +7,14 @@ LevelEXP::LevelEXP(Vector2 creatPos)
 	col->scale.y = 12.0f * 2.0f;
 	col->SetWorldPos(creatPos);
 	col->isFilled = false;
-	col->visible = false;
+	col->visible = true;
 
 	image = new ObImage(L"RED_EXP.png");
 	image->scale = col->scale;
 	image->SetParentRT(*col);
-	image->visible = false;
+	image->visible = true;
 
-	exp = 100.0f;
+	exp = 10.0f;
 
 	col->Update();
 	image->Update();
@@ -36,5 +36,6 @@ void LevelEXP::Update()
 
 void LevelEXP::Render()
 {
+	col->Render();
 	image->Render();
 }
